@@ -12,111 +12,193 @@ namespace GildedRose.Tests
             Assert.True(true);
         }
 
+        #region Derease Quality
         [Fact]
-        public void Decrease_Quality_All_Items()
+        public void Decrease_Quality()
         {
-            int fooQ = 10, barQ = 5;
+            int barQ = 5;
             var app = new Program()
             {
                 Items = new List<Item>
                 {
-                    new Item {Name = "foo", SellIn = 10, Quality = fooQ},
                     new Item {Name = "bar", SellIn = 10, Quality = barQ}
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(
-                new List<int>() { fooQ - 1, barQ - 1}, 
-                new List<int>() { app.Items[0].Quality, app.Items[1].Quality }
-            );
+            Assert.Equal(barQ - 1, app.Items[0].Quality);
         }
+        #endregion
 
+        #region Decrese SellIn
         [Fact]
         public void Decrease_SellIn_All_Items()
         {
-            int fooS = 10, barS = 4;
+            int barS = 4;
             var app = new Program()
             {
                 Items = new List<Item>
                 {
-                    new Item {Name = "foo", SellIn = fooS, Quality = 20},
                     new Item {Name = "bar", SellIn = barS, Quality = 20}
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(
-                new List<int>() { fooS - 1, barS - 1 },
-                new List<int>() { app.Items[0].SellIn, app.Items[1].SellIn }
-            );
+            Assert.Equal(barS - 1, app.Items[0].SellIn);
         }
+        #endregion
 
+        #region Decrease Twice as Fast Once Passed Sell Date
         [Fact]
-        public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date()
+        public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date_Regular_Item()
         {
             var app = new Program()
             {
                 Items = new List<Item>
                 {
-                    new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 20},
-                    new Item {Name = "Aged Brie", SellIn = -2, Quality = 0},
-                    new Item {Name = "Elixir of the Mongoose", SellIn = -5, Quality = 7},
+                    new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 20}
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(20 - 2, app.Items[0].Quality);
+        }
+
+        [Fact]
+        public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date_Aged_Brie()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item {Name = "Aged Brie", SellIn = -2, Quality = 0}
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(0 + 2, app.Items[0].Quality);
+        }
+
+        [Fact]
+        public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date_Sulfuras_Legacy_Item()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
                     new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = -10, Quality = 80},
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = -15,
-                            Quality = 20
-                        },
-                    //new Item {Name = "Conjured Mana Cake", SellIn = -3, Quality = 6}
                 }
             };
             app.UpdateQuality();
 
-            Assert.Equal(
-                new List<int>() { 20 - 2, 0 + 2, 7 - 2, 80 - 0, 0, /*6 - 4*/ },
-                new List<int>() {
-                    app.Items[0].Quality,
-                    app.Items[1].Quality,
-                    app.Items[2].Quality,
-                    app.Items[3].Quality,
-                    app.Items[4].Quality,
-                    //app.Items[5].Quality
-                }
-            );
+            Assert.Equal(80 - 0, app.Items[0].Quality);
         }
 
+        #endregion
+
+        #region Quality is never negative
         [Fact]
-        public void Quality_Is_Never_Negative()
+        public void Quality_Is_Never_Negative_Regular_Item()
         {
             var app = new Program()
             {
                 Items = new List<Item>
                 {
-                    new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 0},
-                    new Item {Name = "Aged Brie", SellIn = -2, Quality = 0},
-                    new Item {Name = "Elixir of the Mongoose", SellIn = -5, Quality = 0},
+                    new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 0}
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(true, app.Items[0].Quality >= 0);
+        }
+
+        [Fact]
+        public void Quality_Is_Never_Negative_AgedBrie()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item {Name = "Aged Brie", SellIn = -1, Quality = 0},
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(true, app.Items[0].Quality >= 0);
+        }
+
+        [Fact]
+        public void Quality_Is_Never_Negative_BackStage_SellIn_as_0()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
                     new Item
                         {
                             Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = -15,
+                            SellIn = 0,
                             Quality = 0
                         },
-                    new Item {Name = "Conjured Mana Cake", SellIn = -3, Quality = 0}
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(
-                new List<bool>() { true, true, true, true, true },
-                new List<bool>() {
-                    app.Items[0].Quality >= 0,
-                    app.Items[1].Quality >= 0,
-                    app.Items[2].Quality >= 0,
-                    app.Items[3].Quality >= 0,
-                    app.Items[4].Quality >= 0
-                }
-            );
+            Assert.Equal(true, app.Items[0].Quality >= 0);
         }
 
+        [Fact]
+        public void Quality_Is_Never_Negative_BackStage_SellIn_as_4()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item
+                        {
+                            Name = "Backstage passes to a TAFKAL80ETC concert",
+                            SellIn = 4,
+                            Quality = 0
+                        },
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(true, app.Items[0].Quality >= 0);
+        }
+
+        [Fact]
+        public void Quality_Is_Never_Negative_BackStage_SellIn_as_9()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item
+                        {
+                            Name = "Backstage passes to a TAFKAL80ETC concert",
+                            SellIn = 9,
+                            Quality = 0
+                        },
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(true, app.Items[0].Quality >= 0);
+        }
+
+        [Fact]
+        public void Quality_Is_Never_Negative_BackStage_SellIn_as_11()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item
+                        {
+                            Name = "Backstage passes to a TAFKAL80ETC concert",
+                            SellIn = 11,
+                            Quality = 0
+                        },
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(true, app.Items[0].Quality >= 0);
+        }
+        #endregion
+
+        #region Aged Brie Increases quality as it gets older
         [Fact]
         public void Aged_Brie_Increases_In_Quality_Getting_Older()
         {
@@ -128,46 +210,118 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(
-                new List<int>() { 10 + 1},
-                new List<int>() {
-                    app.Items[0].Quality
-                }
-            );
+            Assert.Equal(10 + 1, app.Items[0].Quality);
         }
+        #endregion
 
+        #region Quality is never over 50
         [Fact]
-        public void Quality_Is_Never_Over_50()
+        public void Quality_Is_Never_Over_50_Regular_Item()
         {
             var app = new Program()
             {
                 Items = new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 50},
-                    new Item {Name = "Aged Brie", SellIn = -1, Quality = 50},
-                    new Item {Name = "Elixir of the Mongoose", SellIn = 10, Quality = 50},
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(false, app.Items[0].Quality > 50);
+        }
+
+        [Fact]
+        public void Quality_Is_Never_Over_50_Aged_Brie()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item {Name = "Aged Brie", SellIn = -1, Quality = 50}
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(false, app.Items[0].Quality > 50);
+        }
+
+        [Fact]
+        public void Quality_Is_Never_Over_50_BackStage_SellIn_as_0()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
                     new Item
                         {
                             Name = "Backstage passes to a TAFKAL80ETC concert",
                             SellIn = 9,
                             Quality = 49
-                        },
-                    //new Item {Name = "Conjured Mana Cake", SellIn = 10, Quality = 50}
+                        }
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(
-                new List<bool>() { true, true, true, true/*, 50 - 2*/ },
-                new List<bool>() {
-                    app.Items[0].Quality <= 50,
-                    app.Items[1].Quality <= 50,
-                    app.Items[2].Quality <= 50,
-                    app.Items[3].Quality <= 50,
-                    //app.Items[4].Quality
-                }
-            );
+            Assert.Equal(false, app.Items[0].Quality > 50);
         }
 
+        [Fact]
+        public void Quality_Is_Never_Over_50_BackStage_SellIn_as_4()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item
+                        {
+                            Name = "Backstage passes to a TAFKAL80ETC concert",
+                            SellIn = 4,
+                            Quality = 49
+                        }
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(false, app.Items[0].Quality > 50);
+        }
+
+        [Fact]
+        public void Quality_Is_Never_Over_50_BackStage_SellIn_as_9()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item
+                        {
+                            Name = "Backstage passes to a TAFKAL80ETC concert",
+                            SellIn = 9,
+                            Quality = 49
+                        }
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(false, app.Items[0].Quality > 50);
+        }
+
+        [Fact]
+        public void Quality_Is_Never_Over_50_BackStage_SellIn_as_11()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item
+                        {
+                            Name = "Backstage passes to a TAFKAL80ETC concert",
+                            SellIn = 9,
+                            Quality = 49
+                        }
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(false, app.Items[0].Quality > 50);
+        }
+
+        #endregion
+
+        #region Sulfuras never sold or quality decreased
         [Fact]
         public void Sulfuras_Never_Sold_Or_Quality_Decreased()
         {
@@ -179,17 +333,27 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(
-                new List<int>() { 0, 80 },
-                new List<int>() {
-                    app.Items[0].SellIn,
-                    app.Items[0].Quality,
-                }
-            );
+            Assert.Equal(0, app.Items[0].SellIn);
         }
 
         [Fact]
-        public void BackStage_Passes_Quality_Increase_Rate()
+        public void Sulfuras_Never_Quality_Decreased()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(80, app.Items[0].Quality);
+        }
+        #endregion
+
+        #region BackStage Quality Increase Rates
+        [Fact]
+        public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_11()
         {
             var app = new Program()
             {
@@ -200,37 +364,85 @@ namespace GildedRose.Tests
                             Name = "Backstage passes to a TAFKAL80ETC concert",
                             SellIn = 11,
                             Quality = 40
-                        },
+                        }
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(40 + 1, app.Items[0].Quality);
+        }
+
+        public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_9()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
                     new Item
                         {
                             Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 10,
+                            SellIn = 9,
                             Quality = 40
-                        },
+                        }
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(40 + 2, app.Items[0].Quality);
+        }
+
+        public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_4()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
                     new Item
                         {
                             Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 5,
+                            SellIn = 4,
                             Quality = 40
-                        },
+                        }
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(40 + 3, app.Items[0].Quality);
+        }
+
+        public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_0()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item
+                        {
+                            Name = "Backstage passes to a TAFKAL80ETC concert",
+                            SellIn = 0,
+                            Quality = 40
+                        }
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(40 + 3, app.Items[0].Quality);
+        }
+
+        public void BackStage_Passes_Quality_Increase_Rate_Selling_date_is_passed()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
                     new Item
                         {
                             Name = "Backstage passes to a TAFKAL80ETC concert",
                             SellIn = -1,
                             Quality = 40
-                        },
+                        }
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(
-                new List<int>() { 40 + 1 , 40 + 2, 40 +3, 0 },
-                new List<int>() {
-                    app.Items[0].Quality,
-                    app.Items[1].Quality,
-                    app.Items[2].Quality,
-                    app.Items[3].Quality,
-                }
-            );
+            Assert.Equal(0, app.Items[0].Quality);
         }
+
+        #endregion
     }
 }
