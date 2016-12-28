@@ -371,6 +371,7 @@ namespace GildedRose.Tests
             Assert.Equal(40 + 1, app.Items[0].Quality);
         }
 
+        [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_9()
         {
             var app = new Program()
@@ -389,6 +390,7 @@ namespace GildedRose.Tests
             Assert.Equal(40 + 2, app.Items[0].Quality);
         }
 
+        [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_4()
         {
             var app = new Program()
@@ -407,6 +409,7 @@ namespace GildedRose.Tests
             Assert.Equal(40 + 3, app.Items[0].Quality);
         }
 
+        [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_0()
         {
             var app = new Program()
@@ -425,6 +428,7 @@ namespace GildedRose.Tests
             Assert.Equal(40 + 3, app.Items[0].Quality);
         }
 
+        [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_Selling_date_is_passed()
         {
             var app = new Program()
