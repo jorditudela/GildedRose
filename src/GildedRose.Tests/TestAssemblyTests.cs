@@ -106,13 +106,13 @@ namespace GildedRose.Tests
             };
             app.UpdateQuality();
             Assert.Equal(
-                new List<int>() { 0, 0 + 2, 0, 0, 0 },
-                new List<int>() {
-                    app.Items[0].Quality,
-                    app.Items[1].Quality,
-                    app.Items[2].Quality,
-                    app.Items[3].Quality,
-                    app.Items[4].Quality
+                new List<bool>() { true, true, true, true, true },
+                new List<bool>() {
+                    app.Items[0].Quality >= 0,
+                    app.Items[1].Quality >= 0,
+                    app.Items[2].Quality >= 0,
+                    app.Items[3].Quality >= 0,
+                    app.Items[4].Quality >= 0
                 }
             );
         }
@@ -157,12 +157,12 @@ namespace GildedRose.Tests
             };
             app.UpdateQuality();
             Assert.Equal(
-                new List<int>() { 50 - 1, 50 + 0, 50 - 1, 49 + 1/*, 50 - 2*/ },
-                new List<int>() {
-                    app.Items[0].Quality,
-                    app.Items[1].Quality,
-                    app.Items[2].Quality,
-                    app.Items[3].Quality,
+                new List<bool>() { true, true, true, true/*, 50 - 2*/ },
+                new List<bool>() {
+                    app.Items[0].Quality <= 50,
+                    app.Items[1].Quality <= 50,
+                    app.Items[2].Quality <= 50,
+                    app.Items[3].Quality <= 50,
                     //app.Items[4].Quality
                 }
             );
