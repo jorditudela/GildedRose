@@ -144,20 +144,20 @@ namespace GildedRose.Tests
                 Items = new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 50},
-                    new Item {Name = "Aged Brie", SellIn = 10, Quality = 50},
+                    new Item {Name = "Aged Brie", SellIn = -1, Quality = 50},
                     new Item {Name = "Elixir of the Mongoose", SellIn = 10, Quality = 50},
                     new Item
                         {
                             Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 10,
-                            Quality = 50
+                            SellIn = 9,
+                            Quality = 49
                         },
                     //new Item {Name = "Conjured Mana Cake", SellIn = 10, Quality = 50}
                 }
             };
             app.UpdateQuality();
             Assert.Equal(
-                new List<int>() { 50 - 1, 50 + 0, 50 - 1, 50 + 0/*, 50 - 2*/ },
+                new List<int>() { 50 - 1, 50 + 0, 50 - 1, 49 + 1/*, 50 - 2*/ },
                 new List<int>() {
                     app.Items[0].Quality,
                     app.Items[1].Quality,
