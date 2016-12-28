@@ -104,7 +104,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(true, app.Items[0].Quality >= 0);
+            Assert.True(app.Items[0].Quality >= 0);
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(true, app.Items[0].Quality >= 0);
+            Assert.True(app.Items[0].Quality >= 0);
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(true, app.Items[0].Quality >= 0);
+            Assert.True(app.Items[0].Quality >= 0);
         }
 
         [Fact]
@@ -156,7 +156,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(true, app.Items[0].Quality >= 0);
+            Assert.True(app.Items[0].Quality >= 0);
         }
 
         [Fact]
@@ -175,7 +175,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(true, app.Items[0].Quality >= 0);
+            Assert.True(app.Items[0].Quality >= 0);
         }
 
         [Fact]
@@ -194,7 +194,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(true, app.Items[0].Quality >= 0);
+            Assert.True(app.Items[0].Quality >= 0);
         }
         #endregion
 
@@ -226,7 +226,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(false, app.Items[0].Quality > 50);
+            Assert.False(app.Items[0].Quality > 50);
         }
 
         [Fact]
@@ -240,7 +240,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(false, app.Items[0].Quality > 50);
+            Assert.False(app.Items[0].Quality > 50);
         }
 
         [Fact]
@@ -259,7 +259,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(false, app.Items[0].Quality > 50);
+            Assert.False(app.Items[0].Quality > 50);
         }
 
         [Fact]
@@ -278,7 +278,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(false, app.Items[0].Quality > 50);
+            Assert.False(app.Items[0].Quality > 50);
         }
 
         [Fact]
@@ -297,7 +297,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(false, app.Items[0].Quality > 50);
+            Assert.False(app.Items[0].Quality > 50);
         }
 
         [Fact]
@@ -316,7 +316,7 @@ namespace GildedRose.Tests
                 }
             };
             app.UpdateQuality();
-            Assert.Equal(false, app.Items[0].Quality > 50);
+            Assert.False(app.Items[0].Quality > 50);
         }
 
         #endregion
