@@ -90,6 +90,20 @@ namespace GildedRose.Tests
             Assert.Equal(80 - 0, app.Items[0].Quality);
         }
 
+        [Fact]
+        public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date_Conjured_Item()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item {Name = "Conjured Mana Cake", SellIn = -3, Quality = 6}
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(6 - 4, app.Items[0].Quality);
+        }
+
         #endregion
 
         #region Quality is never negative
@@ -196,6 +210,21 @@ namespace GildedRose.Tests
             app.UpdateQuality();
             Assert.True(app.Items[0].Quality >= 0);
         }
+
+        [Fact]
+        public void Quality_Is_Never_Negative_Conjured_Items()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 1}
+                }
+            };
+            app.UpdateQuality();
+            Assert.True(app.Items[0].Quality >= 0);
+        }
+
         #endregion
 
         #region Aged Brie Increases quality as it gets older
@@ -446,7 +475,22 @@ namespace GildedRose.Tests
             app.UpdateQuality();
             Assert.Equal(0, app.Items[0].Quality);
         }
+        #endregion
 
+        #region "Conjured" items degrade in Quality twice as fast as normal items
+        [Fact]
+        public void Conjured_items_degrade_Quality_twice_fast()
+        {
+            var app = new Program()
+            {
+                Items = new List<Item>
+                {
+                    new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
+                }
+            };
+            app.UpdateQuality();
+            Assert.Equal(4, app.Items[0].Quality);
+        }
         #endregion
     }
 }
