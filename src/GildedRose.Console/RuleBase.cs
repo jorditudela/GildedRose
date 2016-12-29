@@ -14,7 +14,7 @@ namespace GildedRose.Console
         };
 
         public string Name;
-        public string Pattern;
+        public string Pattern = ".*";
         public Action<TItem, TArgs> OnExecRule;
         public int Order = 50;
         public bool StopExecution = false;

@@ -45,8 +45,7 @@ namespace GildedRose.Tests
         {
             RuleBase<Item, int[]> rule = new RuleBase<Item, int[]>()
             {
-                Name = "Match all rule",
-                Pattern = @".*"
+                Name = "Match all rule"
             };
 
             Assert.True(rule.isMatch("A Name"));

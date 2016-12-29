@@ -28,14 +28,10 @@ namespace GildedRose.Console
                                                   },
                                               new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
                                           }
-
                           };
-
-
             app.UpdateQuality();
 
             System.Console.ReadKey();
-
         }
 
         public Program()
@@ -43,7 +39,6 @@ namespace GildedRose.Console
             ruler.Add(new RuleBase<Item, ItemIncrement>()
             {
                 Name = "At the end of each day our system lowers both values for every item",
-                Pattern = @".*",
                 OnExecRule = (x, args) =>
                 {
                     args.QualityDelta = -1;
@@ -55,7 +50,6 @@ namespace GildedRose.Console
             ruler.Add(new RuleBase<Item, ItemIncrement>()
             {
                 Name = "Once the sell by date has passed, Quality degrades twice as fast",
-                Pattern = @".*",
                 OnExecRule = (x, args) =>
                 {
                     if ((x.SellIn - args.SellInDelta) < 0)
@@ -67,7 +61,6 @@ namespace GildedRose.Console
             ruler.Add(new RuleBase<Item, ItemIncrement>()
             {
                 Name = "The Quality of an item is never negative",
-                Pattern = @".*",
                 OnExecRule = (x, args) =>
                 {
                     if ((x.Quality + args.QualityDelta) < 0)
@@ -90,7 +83,6 @@ namespace GildedRose.Console
             ruler.Add(new RuleBase<Item, ItemIncrement>()
             {
                 Name = "The Quality of an item is never more than 50",
-                Pattern = @".*",
                 OnExecRule = (x, args) =>
                 {
                     if ((x.Quality + args.QualityDelta) > 50)

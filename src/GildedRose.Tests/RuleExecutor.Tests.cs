@@ -18,7 +18,6 @@ namespace GildedRose.Tests
             ruleEx.Add(new RuleBase<Item, int[]>()
             {
 				Order = 50,
-				Pattern = ".*",
 				Name = "Multiply by 2",
 				OnExecRule = (item, args) =>
                 {
@@ -29,7 +28,6 @@ namespace GildedRose.Tests
             ruleEx.Add(new RuleBase<Item, int[]>()
             {
                 Order = 1,
-                Pattern = ".*",
                 Name = "Initialize to 3",
                 OnExecRule = (item, args) =>
                 {
@@ -51,7 +49,6 @@ namespace GildedRose.Tests
             ruleEx.Add(new RuleBase<Item, int[]>()
             {
                 Order = 50,
-                Pattern = ".*",
                 Name = "Multiply by 2",
                 OnExecRule = (item, args) =>
                 {
@@ -62,7 +59,6 @@ namespace GildedRose.Tests
             ruleEx.Add(new RuleBase<Item, int[]>()
             {
                 Order = 1,
-                Pattern = ".*",
                 Name = "Initialize to 3",
                 OnExecRule = (item, args) =>
                 {
