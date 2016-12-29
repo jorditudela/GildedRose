@@ -135,6 +135,16 @@ namespace GildedRose.Console
                 Order = 21,
             });
 
+            ruler.Add(new RuleBase<Item, ItemIncrement>()
+            {
+                Name = "\"Conjured\" items degrade in Quality twice as fast as normal items",
+                Pattern = @"Conjured.*",
+                OnExecRule = (x, args) =>
+                {
+                    args.QualityDelta = args.QualityDelta * 2;
+                },
+                Order = 15
+            });
         }
 
         public void UpdateQuality()
