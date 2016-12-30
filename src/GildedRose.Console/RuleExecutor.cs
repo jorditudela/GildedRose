@@ -8,29 +8,35 @@ namespace GildedRose.Console
 {
     public class RuleExecutor<TItem, TArgs>
     {
-        private List<RuleBase<TItem, TArgs>> rules;/* = new List<RuleBase<TItem, TArgs>>();*/
-
-        //public void Add(RuleBase<TItem, TArgs> rule)
-        //{
-        //    rules.Add(rule);
-        //}
+        private List<RuleBase<TItem, TArgs>> rules;
 
         public void ExecuteRules(TItem item, TArgs args)
         {
+            foreach (RuleBase<TItem, TArgs> rule in selectRules(item))
+            {
+                rule.ExecRule(item, args);
+                if (rule.StopExecution)
+                    break;
+            }
+        }
+
+        private IOrderedEnumerable<RuleBase<TItem, TArgs>> selectRules(TItem item)
+        {
             var itemNameProp = item.GetType().GetProperty("Name");
+            IEnumerable<RuleBase<TItem, TArgs>> selected;
             if (itemNameProp != null)
             {
-                IOrderedEnumerable<RuleBase<TItem, TArgs>> applicableRules =
-                    rules.Where(
+                selected = rules.Where(
                         x => x.isMatch(itemNameProp.GetValue(item).ToString())
-                    ).OrderBy(x => x.Order);
-                foreach (RuleBase<TItem, TArgs> rule in applicableRules)
-                {
-                    rule.ExecRule(item, args);
-                    if (rule.StopExecution)
-                        break;
-                }
+                    );
             }
+            else
+            {
+                selected = rules.Where(
+                    x => x.Pattern == ".*"
+                );
+            }
+            return selected.OrderBy(x => x.Order);
         }
 
         public RuleExecutor(List<RuleBase<TItem, TArgs>> rules)
