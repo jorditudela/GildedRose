@@ -21,7 +21,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "bar", SellIn = 10, Quality = barQ}
-                }
+                },
+                rules: GildedRoseRules.Defaults
         );
             app.UpdateQuality();
             Assert.Equal(barQ - 1, app.getItem(0).Quality);
@@ -37,7 +38,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "bar", SellIn = barS, Quality = 20}
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(barS - 1, app.getItem(0).SellIn);
@@ -52,7 +54,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 20}
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(20 - 2, app.getItem(0).Quality);
@@ -65,7 +68,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Aged Brie", SellIn = -2, Quality = 0}
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(0 + 2, app.getItem(0).Quality);
@@ -78,7 +82,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = -10, Quality = 80},
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
 
@@ -92,7 +97,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Conjured Mana Cake", SellIn = -3, Quality = 6}
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(6 - 4, app.getItem(0).Quality);
@@ -108,7 +114,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 0}
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.True(app.getItem(0).Quality >= 0);
@@ -121,7 +128,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Aged Brie", SellIn = -1, Quality = 0},
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.True(app.getItem(0).Quality >= 0);
@@ -139,7 +147,8 @@ namespace GildedRose.Tests
                             SellIn = 0,
                             Quality = 0
                         },
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.True(app.getItem(0).Quality >= 0);
@@ -157,7 +166,8 @@ namespace GildedRose.Tests
                             SellIn = 4,
                             Quality = 0
                         },
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.True(app.getItem(0).Quality >= 0);
@@ -175,7 +185,8 @@ namespace GildedRose.Tests
                             SellIn = 9,
                             Quality = 0
                         },
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.True(app.getItem(0).Quality >= 0);
@@ -193,7 +204,8 @@ namespace GildedRose.Tests
                             SellIn = 11,
                             Quality = 0
                         },
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.True(app.getItem(0).Quality >= 0);
@@ -206,7 +218,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 1}
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.True(app.getItem(0).Quality >= 0);
@@ -222,7 +235,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Aged Brie", SellIn = 5, Quality = 10},
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(10 + 1, app.getItem(0).Quality);
@@ -237,7 +251,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 50},
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.False(app.getItem(0).Quality > 50);
@@ -250,7 +265,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Aged Brie", SellIn = -1, Quality = 50}
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.False(app.getItem(0).Quality > 50);
@@ -268,7 +284,8 @@ namespace GildedRose.Tests
                             SellIn = 9,
                             Quality = 49
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.False(app.getItem(0).Quality > 50);
@@ -286,7 +303,8 @@ namespace GildedRose.Tests
                             SellIn = 4,
                             Quality = 49
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.False(app.getItem(0).Quality > 50);
@@ -304,7 +322,8 @@ namespace GildedRose.Tests
                             SellIn = 9,
                             Quality = 49
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.False(app.getItem(0).Quality > 50);
@@ -322,7 +341,8 @@ namespace GildedRose.Tests
                             SellIn = 9,
                             Quality = 49
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.False(app.getItem(0).Quality > 50);
@@ -338,7 +358,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(0, app.getItem(0).SellIn);
@@ -351,7 +372,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(80, app.getItem(0).Quality);
@@ -371,7 +393,8 @@ namespace GildedRose.Tests
                             SellIn = 11,
                             Quality = 40
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(40 + 1, app.getItem(0).Quality);
@@ -389,7 +412,8 @@ namespace GildedRose.Tests
                             SellIn = 9,
                             Quality = 40
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(40 + 2, app.getItem(0).Quality);
@@ -407,7 +431,8 @@ namespace GildedRose.Tests
                             SellIn = 4,
                             Quality = 40
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(40 + 3, app.getItem(0).Quality);
@@ -425,7 +450,8 @@ namespace GildedRose.Tests
                             SellIn = 0,
                             Quality = 40
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(40 + 3, app.getItem(0).Quality);
@@ -443,7 +469,8 @@ namespace GildedRose.Tests
                             SellIn = -1,
                             Quality = 40
                         }
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(0, app.getItem(0).Quality);
@@ -458,7 +485,8 @@ namespace GildedRose.Tests
                 Items: new List<Item>
                 {
                     new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
-                }
+                },
+                rules: GildedRoseRules.Defaults
             );
             app.UpdateQuality();
             Assert.Equal(4, app.getItem(0).Quality);

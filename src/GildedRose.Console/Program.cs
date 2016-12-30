@@ -10,9 +10,7 @@ namespace GildedRose.Console
             return this.Items[index];
         }
 
-        RuleExecutor<Item, ItemIncrement> ruler = new RuleExecutor<Item, ItemIncrement>(
-            rules: GildedRoseRules.Defaults
-        );
+        RuleExecutor<Item, ItemIncrement> ruler;
 
         static void Main(string[] args)
         {
@@ -32,16 +30,20 @@ namespace GildedRose.Console
                                                       Quality = 20
                                                   },
                                               new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
-                                          }
+                                          },
+                              rules: GildedRoseRules.Defaults
                           );
             app.UpdateQuality();
 
             System.Console.ReadKey();
         }
 
-        public Program(List<Item> Items)
+        public Program(List<Item> Items, List<RuleBase<Item, ItemIncrement>> rules)
         {
             this.Items = Items;
+            this.ruler = new RuleExecutor<Item, ItemIncrement>(
+                rules: rules
+            );
         }
 
         public void UpdateQuality()
