@@ -32,7 +32,7 @@ namespace GildedRose.Console
                         },
                     new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
                 },
-                rules: GildedRoseRules.Defaults
+                rules: Rules.Defaults
             );
             app.UpdateQuality();
 

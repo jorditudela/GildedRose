@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GildedRose.Console
 {
-    public static class GildedRoseRules
+    public static class Rules
     {
         public static List<RuleBase<Item, ItemIncrement>> Defaults = new List<RuleBase<Item, ItemIncrement>>()
         {
