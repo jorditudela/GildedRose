@@ -9,7 +9,8 @@ namespace GildedRose.Console
 {
     public class RuleBase<TItem, TArgs>
     {
-        public class ItemUpdaterNotSetException : Exception {
+        public class ItemUpdaterNotSetException : Exception
+        {
             public RuleBase<TItem, TArgs> rule;
         };
 
@@ -22,7 +23,8 @@ namespace GildedRose.Console
         public void ExecRule(TItem item, TArgs args)
         {
             if (OnExecRule == null)
-                throw new ItemUpdaterNotSetException() {
+                throw new ItemUpdaterNotSetException()
+                {
                     rule = this
                 };
             OnExecRule(item, args);

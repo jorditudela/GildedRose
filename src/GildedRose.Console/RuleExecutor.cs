@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GildedRose.Console
 {
-    public class RuleExecutor<TItem, TArgs> 
+    public class RuleExecutor<TItem, TArgs>
     {
         private List<RuleBase<TItem, TArgs>> rules;/* = new List<RuleBase<TItem, TArgs>>();*/
 
@@ -20,7 +20,7 @@ namespace GildedRose.Console
             var itemNameProp = item.GetType().GetProperty("Name");
             if (itemNameProp != null)
             {
-                IOrderedEnumerable<RuleBase<TItem, TArgs>> applicableRules = 
+                IOrderedEnumerable<RuleBase<TItem, TArgs>> applicableRules =
                     rules.Where(
                         x => x.isMatch(itemNameProp.GetValue(item).ToString())
                     ).OrderBy(x => x.Order);

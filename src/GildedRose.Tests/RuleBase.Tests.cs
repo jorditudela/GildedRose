@@ -15,7 +15,7 @@ namespace GildedRose.Tests
         {
             RuleBase<Item, int> rule = new RuleBase<Item, int>();
 
-            Exception e = Assert.Throws<RuleBase<Item,int>.ItemUpdaterNotSetException>
+            Exception e = Assert.Throws<RuleBase<Item, int>.ItemUpdaterNotSetException>
                 (() => rule.ExecRule(new Item(), 0));
         }
 

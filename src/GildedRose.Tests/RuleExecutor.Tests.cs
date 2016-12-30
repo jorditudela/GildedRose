@@ -10,8 +10,8 @@ namespace GildedRose.Tests
 {
     public class TestRuleExecutor
     {
-		[Fact]
-		public void Execute_rules_in_order()
+        [Fact]
+        public void Execute_rules_in_order()
         {
             RuleExecutor<Item, int[]> ruleEx = new RuleExecutor<Item, int[]>(
                 new List<RuleBase<Item, int[]>>()
