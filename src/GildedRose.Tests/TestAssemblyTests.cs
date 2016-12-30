@@ -17,15 +17,14 @@ namespace GildedRose.Tests
         public void Decrease_Quality()
         {
             int barQ = 5;
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "bar", SellIn = 10, Quality = barQ}
                 }
-            };
+        );
             app.UpdateQuality();
-            Assert.Equal(barQ - 1, app.Items[0].Quality);
+            Assert.Equal(barQ - 1, app.getItem(0).Quality);
         }
         #endregion
 
@@ -34,15 +33,14 @@ namespace GildedRose.Tests
         public void Decrease_SellIn_All_Items()
         {
             int barS = 4;
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "bar", SellIn = barS, Quality = 20}
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(barS - 1, app.Items[0].SellIn);
+            Assert.Equal(barS - 1, app.getItem(0).SellIn);
         }
         #endregion
 
@@ -50,58 +48,54 @@ namespace GildedRose.Tests
         [Fact]
         public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date_Regular_Item()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 20}
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(20 - 2, app.Items[0].Quality);
+            Assert.Equal(20 - 2, app.getItem(0).Quality);
         }
 
         [Fact]
         public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date_Aged_Brie()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Aged Brie", SellIn = -2, Quality = 0}
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(0 + 2, app.Items[0].Quality);
+            Assert.Equal(0 + 2, app.getItem(0).Quality);
         }
 
         [Fact]
         public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date_Sulfuras_Legacy_Item()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = -10, Quality = 80},
                 }
-            };
+            );
             app.UpdateQuality();
 
-            Assert.Equal(80 - 0, app.Items[0].Quality);
+            Assert.Equal(80 - 0, app.getItem(0).Quality);
         }
 
         [Fact]
         public void Decrease_Twice_As_Fast_Once_Passed_Sell_Date_Conjured_Item()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Conjured Mana Cake", SellIn = -3, Quality = 6}
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(6 - 4, app.Items[0].Quality);
+            Assert.Equal(6 - 4, app.getItem(0).Quality);
         }
 
         #endregion
@@ -110,37 +104,34 @@ namespace GildedRose.Tests
         [Fact]
         public void Quality_Is_Never_Negative_Regular_Item()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 0}
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.True(app.Items[0].Quality >= 0);
+            Assert.True(app.getItem(0).Quality >= 0);
         }
 
         [Fact]
         public void Quality_Is_Never_Negative_AgedBrie()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Aged Brie", SellIn = -1, Quality = 0},
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.True(app.Items[0].Quality >= 0);
+            Assert.True(app.getItem(0).Quality >= 0);
         }
 
         [Fact]
         public void Quality_Is_Never_Negative_BackStage_SellIn_as_0()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -149,17 +140,16 @@ namespace GildedRose.Tests
                             Quality = 0
                         },
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.True(app.Items[0].Quality >= 0);
+            Assert.True(app.getItem(0).Quality >= 0);
         }
 
         [Fact]
         public void Quality_Is_Never_Negative_BackStage_SellIn_as_4()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -168,17 +158,16 @@ namespace GildedRose.Tests
                             Quality = 0
                         },
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.True(app.Items[0].Quality >= 0);
+            Assert.True(app.getItem(0).Quality >= 0);
         }
 
         [Fact]
         public void Quality_Is_Never_Negative_BackStage_SellIn_as_9()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -187,17 +176,16 @@ namespace GildedRose.Tests
                             Quality = 0
                         },
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.True(app.Items[0].Quality >= 0);
+            Assert.True(app.getItem(0).Quality >= 0);
         }
 
         [Fact]
         public void Quality_Is_Never_Negative_BackStage_SellIn_as_11()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -206,23 +194,22 @@ namespace GildedRose.Tests
                             Quality = 0
                         },
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.True(app.Items[0].Quality >= 0);
+            Assert.True(app.getItem(0).Quality >= 0);
         }
 
         [Fact]
         public void Quality_Is_Never_Negative_Conjured_Items()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 1}
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.True(app.Items[0].Quality >= 0);
+            Assert.True(app.getItem(0).Quality >= 0);
         }
 
         #endregion
@@ -231,15 +218,14 @@ namespace GildedRose.Tests
         [Fact]
         public void Aged_Brie_Increases_In_Quality_Getting_Older()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Aged Brie", SellIn = 5, Quality = 10},
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(10 + 1, app.Items[0].Quality);
+            Assert.Equal(10 + 1, app.getItem(0).Quality);
         }
         #endregion
 
@@ -247,37 +233,34 @@ namespace GildedRose.Tests
         [Fact]
         public void Quality_Is_Never_Over_50_Regular_Item()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 50},
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.False(app.Items[0].Quality > 50);
+            Assert.False(app.getItem(0).Quality > 50);
         }
 
         [Fact]
         public void Quality_Is_Never_Over_50_Aged_Brie()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Aged Brie", SellIn = -1, Quality = 50}
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.False(app.Items[0].Quality > 50);
+            Assert.False(app.getItem(0).Quality > 50);
         }
 
         [Fact]
         public void Quality_Is_Never_Over_50_BackStage_SellIn_as_0()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -286,17 +269,16 @@ namespace GildedRose.Tests
                             Quality = 49
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.False(app.Items[0].Quality > 50);
+            Assert.False(app.getItem(0).Quality > 50);
         }
 
         [Fact]
         public void Quality_Is_Never_Over_50_BackStage_SellIn_as_4()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -305,17 +287,16 @@ namespace GildedRose.Tests
                             Quality = 49
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.False(app.Items[0].Quality > 50);
+            Assert.False(app.getItem(0).Quality > 50);
         }
 
         [Fact]
         public void Quality_Is_Never_Over_50_BackStage_SellIn_as_9()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -324,17 +305,16 @@ namespace GildedRose.Tests
                             Quality = 49
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.False(app.Items[0].Quality > 50);
+            Assert.False(app.getItem(0).Quality > 50);
         }
 
         [Fact]
         public void Quality_Is_Never_Over_50_BackStage_SellIn_as_11()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -343,9 +323,9 @@ namespace GildedRose.Tests
                             Quality = 49
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.False(app.Items[0].Quality > 50);
+            Assert.False(app.getItem(0).Quality > 50);
         }
 
         #endregion
@@ -354,29 +334,27 @@ namespace GildedRose.Tests
         [Fact]
         public void Sulfuras_Never_Sold_Or_Quality_Decreased()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(0, app.Items[0].SellIn);
+            Assert.Equal(0, app.getItem(0).SellIn);
         }
 
         [Fact]
         public void Sulfuras_Never_Quality_Decreased()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(80, app.Items[0].Quality);
+            Assert.Equal(80, app.getItem(0).Quality);
         }
         #endregion
 
@@ -384,9 +362,8 @@ namespace GildedRose.Tests
         [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_11()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -395,17 +372,16 @@ namespace GildedRose.Tests
                             Quality = 40
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(40 + 1, app.Items[0].Quality);
+            Assert.Equal(40 + 1, app.getItem(0).Quality);
         }
 
         [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_9()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -414,17 +390,16 @@ namespace GildedRose.Tests
                             Quality = 40
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(40 + 2, app.Items[0].Quality);
+            Assert.Equal(40 + 2, app.getItem(0).Quality);
         }
 
         [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_4()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -433,17 +408,16 @@ namespace GildedRose.Tests
                             Quality = 40
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(40 + 3, app.Items[0].Quality);
+            Assert.Equal(40 + 3, app.getItem(0).Quality);
         }
 
         [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_SellIn_as_0()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -452,17 +426,16 @@ namespace GildedRose.Tests
                             Quality = 40
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(40 + 3, app.Items[0].Quality);
+            Assert.Equal(40 + 3, app.getItem(0).Quality);
         }
 
         [Fact]
         public void BackStage_Passes_Quality_Increase_Rate_Selling_date_is_passed()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item
                         {
@@ -471,9 +444,9 @@ namespace GildedRose.Tests
                             Quality = 40
                         }
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(0, app.Items[0].Quality);
+            Assert.Equal(0, app.getItem(0).Quality);
         }
         #endregion
 
@@ -481,15 +454,14 @@ namespace GildedRose.Tests
         [Fact]
         public void Conjured_items_degrade_Quality_twice_fast()
         {
-            var app = new Program()
-            {
-                Items = new List<Item>
+            var app = new Program(
+                Items: new List<Item>
                 {
                     new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
                 }
-            };
+            );
             app.UpdateQuality();
-            Assert.Equal(4, app.Items[0].Quality);
+            Assert.Equal(4, app.getItem(0).Quality);
         }
         #endregion
     }
