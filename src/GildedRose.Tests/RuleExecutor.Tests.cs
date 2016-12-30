@@ -109,5 +109,36 @@ namespace GildedRose.Tests
             ruleEx.ExecuteRules(new Object(), arg);
             Assert.Equal(2, arg[0]);
         }
+
+        [Fact]
+        public void Select_Rules_When_TItem_Has_NOT_a_Name_Property_But_a_Key_Getter_has_been_provided()
+        {
+            RuleExecutor<dynamic, int[]> ruleEx = new RuleExecutor<dynamic, int[]>(
+                rules : new List<RuleBase<dynamic, int[]>>()
+                {
+                    new RuleBase<dynamic, int[]>()
+                    {
+                        Order = 50,
+                        Name = "Multiply by 2",
+                        OnExecRule = (item, args) => { args[0] = args[0] * 2; }
+                    },
+                    new RuleBase<dynamic, int[]>()
+                    {
+                        Order = 1,
+                        Pattern = "special.*",
+                        Name = "Initialize to 3",
+                        OnExecRule = (item, args) => { args[0] = 3; }
+                    }
+                },
+                onGetKey : (item) => { return item.AlternateName; }
+            );
+            int[] arg = new int[1];
+            arg[0] = 1;
+            dynamic obj = new System.Dynamic.ExpandoObject();
+            ((IDictionary<string, Object>)obj).Add("AlternateName", "special dynamic object");
+            ruleEx.ExecuteRules(obj, arg);
+            Assert.Equal(6, arg[0]);
+        }
+
     }
 }
