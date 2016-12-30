@@ -8,12 +8,12 @@ namespace GildedRose.Console
 {
     public class RuleExecutor<TItem, TArgs> 
     {
-        private List<RuleBase<TItem, TArgs>> rules = new List<RuleBase<TItem, TArgs>>();
+        private List<RuleBase<TItem, TArgs>> rules;/* = new List<RuleBase<TItem, TArgs>>();*/
 
-        public void Add(RuleBase<TItem, TArgs> rule)
-        {
-            rules.Add(rule);
-        }
+        //public void Add(RuleBase<TItem, TArgs> rule)
+        //{
+        //    rules.Add(rule);
+        //}
 
         public void ExecuteRules(TItem item, TArgs args)
         {
@@ -31,6 +31,11 @@ namespace GildedRose.Console
                         break;
                 }
             }
+        }
+
+        public RuleExecutor(List<RuleBase<TItem, TArgs>> rules)
+        {
+            this.rules = rules;
         }
     }
 }
