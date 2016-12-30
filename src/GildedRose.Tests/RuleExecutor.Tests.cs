@@ -77,5 +77,37 @@ namespace GildedRose.Tests
             Assert.Equal(3, arg[0]);
         }
 
+        [Fact]
+        public void Select_Rules_When_TItem_Has_NOT_a_Name_Property()
+        {
+            RuleExecutor<Object, int[]> ruleEx = new RuleExecutor<Object, int[]>(
+                new List<RuleBase<Object, int[]>>()
+                {
+                    new RuleBase<Object, int[]>()
+                    {
+                        Order = 50,
+                        Name = "Multiply by 2",
+                        OnExecRule = (item, args) =>
+                        {
+                            args[0] = args[0] * 2;
+                        }
+                    },
+                    new RuleBase<Object, int[]>()
+                    {
+                        Order = 1,
+                        Pattern = "special.*",
+                        Name = "Initialize to 3",
+                        OnExecRule = (item, args) =>
+                        {
+                            args[0] = 3;
+                        }
+                    }
+                }
+            );
+            int[] arg = new int[1];
+            arg[0] = 1;
+            ruleEx.ExecuteRules(new Object(), arg);
+            Assert.Equal(2, arg[0]);
+        }
     }
 }
