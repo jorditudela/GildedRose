@@ -9,6 +9,7 @@ namespace GildedRose.Console
     public class RuleExecutor<TItem, TArgs>
     {
         private List<RuleBase<TItem, TArgs>> rules;
+        private Func<TItem, string> onGetKey = null;
 
         public void ExecuteRules(TItem item, TArgs args)
         {
@@ -28,7 +29,13 @@ namespace GildedRose.Console
             {
                 selected = rules.Where(
                         x => x.isMatch(itemNameProp.GetValue(item).ToString())
-                    );
+                );
+            }
+            else if (onGetKey != null)
+            {
+                selected = rules.Where(
+                        x => x.isMatch(onGetKey(item))
+                );
             }
             else
             {
@@ -42,6 +49,12 @@ namespace GildedRose.Console
         public RuleExecutor(List<RuleBase<TItem, TArgs>> rules)
         {
             this.rules = rules;
+        }
+
+        public RuleExecutor(List<RuleBase<TItem, TArgs>> rules, Func<TItem, string> onGetKey)
+        {
+            this.rules = rules;
+            this.onGetKey = onGetKey;
         }
     }
 }
