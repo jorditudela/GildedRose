@@ -1,5 +1,6 @@
 using Xunit;
 using GildedRose.Console;
+using GildedRose.Console.Core;
 using System.Collections.Generic;
 
 namespace GildedRose.Tests
@@ -20,7 +21,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "bar", SellIn = 10, Quality = barQ}
+                    new CustomItem("bar", 10, barQ)
                 },
                 rules: Rules.Defaults
         );
@@ -37,7 +38,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "bar", SellIn = barS, Quality = 20}
+                    new CustomItem("bar", barS, 20)
                 },
                 rules: Rules.Defaults
             );
@@ -53,7 +54,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 20}
+                    new Plus5DexitryVestItem(-10, 20)
                 },
                 rules: Rules.Defaults
             );
@@ -67,7 +68,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Aged Brie", SellIn = -2, Quality = 0}
+                    new AgedBrieItem(-2, 0)
                 },
                 rules: Rules.Defaults
             );
@@ -81,7 +82,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = -10, Quality = 80},
+                    new SulfurasHandOfRagnarosItem(-10, 80)
                 },
                 rules: Rules.Defaults
             );
@@ -96,7 +97,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Conjured Mana Cake", SellIn = -3, Quality = 6}
+                    new ConjuredManaCakeItem( -3, 6)
                 },
                 rules: Rules.Defaults
             );
@@ -113,7 +114,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "+5 Dexterity Vest", SellIn = -10, Quality = 0}
+                    new Plus5DexitryVestItem(  -10,  0)
                 },
                 rules: Rules.Defaults
             );
@@ -127,7 +128,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Aged Brie", SellIn = -1, Quality = 0},
+                    new AgedBrieItem( -1,  0)
                 },
                 rules: Rules.Defaults
             );
@@ -141,12 +142,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 0,
-                            Quality = 0
-                        },
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 0, 0),
                 },
                 rules: Rules.Defaults
             );
@@ -160,12 +156,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 4,
-                            Quality = 0
-                        },
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 4, 0),
                 },
                 rules: Rules.Defaults
             );
@@ -179,12 +170,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 9,
-                            Quality = 0
-                        },
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 9, 0),
                 },
                 rules: Rules.Defaults
             );
@@ -198,12 +184,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 11,
-                            Quality = 0
-                        },
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 11, 0),
                 },
                 rules: Rules.Defaults
             );
@@ -217,7 +198,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 1}
+                    new ConjuredManaCakeItem( 3, 1)
                 },
                 rules: Rules.Defaults
             );
@@ -234,7 +215,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Aged Brie", SellIn = 5, Quality = 10},
+                    new AgedBrieItem( 5,  10)
                 },
                 rules: Rules.Defaults
             );
@@ -250,7 +231,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 50},
+                    new Plus5DexitryVestItem(  10,  50)
                 },
                 rules: Rules.Defaults
             );
@@ -264,7 +245,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Aged Brie", SellIn = -1, Quality = 50}
+                    new AgedBrieItem( -1,  5)
                 },
                 rules: Rules.Defaults
             );
@@ -278,12 +259,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 9,
-                            Quality = 49
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 9, 49)
                 },
                 rules: Rules.Defaults
             );
@@ -297,12 +273,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 4,
-                            Quality = 49
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 4, 49)
                 },
                 rules: Rules.Defaults
             );
@@ -316,12 +287,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 9,
-                            Quality = 49
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 9, 49)
                 },
                 rules: Rules.Defaults
             );
@@ -335,12 +301,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 9,
-                            Quality = 49
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 9, 49)
                 },
                 rules: Rules.Defaults
             );
@@ -357,7 +318,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
+                    new SulfurasHandOfRagnarosItem( 0,  80)
                 },
                 rules: Rules.Defaults
             );
@@ -371,7 +332,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
+                    new SulfurasHandOfRagnarosItem( 0,  80)
                 },
                 rules: Rules.Defaults
             );
@@ -387,12 +348,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 11,
-                            Quality = 40
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 11, 40)
                 },
                 rules: Rules.Defaults
             );
@@ -406,12 +362,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 9,
-                            Quality = 40
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 9, 40)
                 },
                 rules: Rules.Defaults
             );
@@ -425,12 +376,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 4,
-                            Quality = 40
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 4, 40)
                 },
                 rules: Rules.Defaults
             );
@@ -444,12 +390,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 0,
-                            Quality = 40
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( 0, 40)
                 },
                 rules: Rules.Defaults
             );
@@ -463,12 +404,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = -1,
-                            Quality = 40
-                        }
+                    new BackstagePassesToATAFKAL80ETCConcertItem( -1, 40)
                 },
                 rules: Rules.Defaults
             );
@@ -484,7 +420,7 @@ namespace GildedRose.Tests
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
+                    new ConjuredManaCakeItem( 3, 6)
                 },
                 rules: Rules.Defaults
             );

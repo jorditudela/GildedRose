@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ItemConsts.cs" />
+    <Compile Include="Core\CustomItems.cs" />
     <Compile Include="Rules.cs" />
     <Compile Include="ItemIncrement.cs" />
     <Compile Include="Program.cs" />

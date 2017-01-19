@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GildedRose.Console.Core;
 
 namespace GildedRose.Console
 {
@@ -20,17 +21,12 @@ namespace GildedRose.Console
             var app = new Program(
                 Items: new List<Item>
                 {
-                    new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
-                    new Item {Name = "Aged Brie", SellIn = 2, Quality = 0},
-                    new Item {Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7},
-                    new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
-                    new Item
-                        {
-                            Name = "Backstage passes to a TAFKAL80ETC concert",
-                            SellIn = 15,
-                            Quality = 20
-                        },
-                    new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
+                    new Plus5DexitryVestItem(10, 20),
+                    new AgedBrieItem(2, 0),
+                    new ElixirOfTheMongoseItem(5, 7),
+                    new SulfurasHandOfRagnarosItem(0, 80),
+                    new BackstagePassesToATAFKAL80ETCConcertItem(15, 20),
+                    new ConjuredManaCakeItem(3, 6)
                 },
                 rules: Rules.Defaults
             );
