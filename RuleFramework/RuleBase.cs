@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace GildedRose.Console
+namespace RuleFramework
 {
     public class RuleBase<TItem, TArgs>
     {

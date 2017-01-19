@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GildedRose.Console.Core;
+using RuleFramework;
 
 namespace GildedRose.Console
 {

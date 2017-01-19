@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GildedRose.Console
+namespace RuleFramework
 {
     public class RuleExecutor<TItem, TArgs>
     {
