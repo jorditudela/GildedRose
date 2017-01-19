@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RuleFramework;
+using GildedRose.Console.Core;
 
 namespace GildedRose.Console
 {
@@ -47,7 +48,7 @@ namespace GildedRose.Console
             new RuleBase<Item, ItemIncrement>()
             {
                 Name = "\"Aged Brie\" actually increases in Quality the older it gets",
-                Pattern = @"Aged Brie",
+                Pattern = ItemConsts.AgedBrie,
                 OnExecRule = (x, args) =>
                 {
                     args.QualityDelta = 1;
@@ -69,7 +70,7 @@ namespace GildedRose.Console
             new RuleBase<Item, ItemIncrement>()
             {
                 Name = "\"Sulfuras\", being a legendary item, never has to be sold or decreases in Quality",
-                Pattern = @"Sulfuras.*",
+                Pattern = ItemConsts.SulfurasHandOfRagnaros,
                 OnExecRule = (x, args) =>
                 {
                     // No changes at all
@@ -105,7 +106,7 @@ namespace GildedRose.Console
             new RuleBase<Item, ItemIncrement>()
             {
                 Name = "\"Conjured\" items degrade in Quality twice as fast as normal items",
-                Pattern = @"Conjured.*",
+                Pattern = ItemConsts.ConjuredManaCake,
                 OnExecRule = (x, args) =>
                 {
                     args.QualityDelta = args.QualityDelta* 2;
