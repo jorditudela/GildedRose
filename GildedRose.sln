@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{B8B88B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GildedRose.Console", "src\GildedRose.Console\GildedRose.Console.csproj", "{F2E879A9-7F1C-4C34-AB0D-2662F9815046}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleFramework", "RuleFramework\RuleFramework.csproj", "{06F08229-B066-4CA5-BB33-663198F3396D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleFramework", "src\RuleFramework\RuleFramework.csproj", "{06F08229-B066-4CA5-BB33-663198F3396D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

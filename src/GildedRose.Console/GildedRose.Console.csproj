@@ -53,7 +53,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RuleFramework\RuleFramework.csproj">
+    <ProjectReference Include="..\RuleFramework\RuleFramework.csproj">
       <Project>{06f08229-b066-4ca5-bb33-663198f3396d}</Project>
       <Name>RuleFramework</Name>
     </ProjectReference>
