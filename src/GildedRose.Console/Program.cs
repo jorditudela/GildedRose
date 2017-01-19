@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GildedRose.Console.Core;
 using RuleFramework;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GildedRose.Console
