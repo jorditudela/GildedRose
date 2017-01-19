@@ -13,12 +13,11 @@ namespace RuleFramework
 
         public void ExecuteRules(TItem item, TArgs args)
         {
-            foreach (RuleBase<TItem, TArgs> rule in selectRules(item))
-            {
-                rule.ExecRule(item, args);
-                if (rule.StopExecution)
-                    break;
-            }
+            bool stopFound = false;
+            selectRules(item).ToList().ForEach(rule => {
+                if (! stopFound) rule.ExecRule(item, args);
+                stopFound |= rule.StopExecution;
+            });
         }
 
         private IOrderedEnumerable<RuleBase<TItem, TArgs>> selectRules(TItem item)
