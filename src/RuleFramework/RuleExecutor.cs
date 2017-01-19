@@ -23,15 +23,8 @@ namespace RuleFramework
 
         private IOrderedEnumerable<RuleBase<TItem, TArgs>> selectRules(TItem item)
         {
-            var itemNameProp = item.GetType().GetProperty("Name");
-            IEnumerable<RuleBase<TItem, TArgs>> selected;
-            if (itemNameProp != null)
-            {
-                selected = rules.Where(
-                        x => x.isMatch(itemNameProp.GetValue(item).ToString())
-                );
-            }
-            else if (onGetKey != null)
+            IEnumerable<RuleBase<TItem, TArgs>> selected; 
+            if (onGetKey != null)
             {
                 selected = rules.Where(
                         x => x.isMatch(onGetKey(item))
@@ -46,10 +39,7 @@ namespace RuleFramework
             return selected.OrderBy(x => x.Order);
         }
 
-        public RuleExecutor(List<RuleBase<TItem, TArgs>> rules)
-        {
-            this.rules = rules;
-        }
+        public RuleExecutor(List<RuleBase<TItem, TArgs>> rules) : this(rules, null){ }
 
         public RuleExecutor(List<RuleBase<TItem, TArgs>> rules, Func<TItem, string> onGetKey)
         {

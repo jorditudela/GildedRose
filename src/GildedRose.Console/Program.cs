@@ -40,7 +40,8 @@ namespace GildedRose.Console
         {
             this.Items = Items;
             ruler = new RuleExecutor<Item, ItemIncrement>(
-                rules: rules
+                rules: rules,
+                onGetKey: (item) => item.Name 
             );
         }
 

@@ -15,7 +15,7 @@ namespace GildedRose.Tests
         public void Execute_rules_in_order()
         {
             RuleExecutor<Item, int[]> ruleEx = new RuleExecutor<Item, int[]>(
-                new List<RuleBase<Item, int[]>>()
+                rules: new List<RuleBase<Item, int[]>>()
                 {
                     new RuleBase<Item, int[]>()
                     {
@@ -36,7 +36,8 @@ namespace GildedRose.Tests
                             args[0] = 3;
                         }
                     }
-                }
+                },
+                 onGetKey: (item) => item.Name
             );
 
             int[] arg = new int[1];
@@ -49,7 +50,7 @@ namespace GildedRose.Tests
         public void Execute_Only_First_Rule()
         {
             RuleExecutor<Item, int[]> ruleEx = new RuleExecutor<Item, int[]>(
-                new List<RuleBase<Item, int[]>>()
+                rules: new List<RuleBase<Item, int[]>>()
                 {
                     new RuleBase<Item, int[]>()
                     {
@@ -70,7 +71,8 @@ namespace GildedRose.Tests
                         },
                         StopExecution = true
                     }
-                }
+                },
+                onGetKey: (item) => item.Name
             );
             int[] arg = new int[1];
             arg[0] = 1;
@@ -79,7 +81,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void Select_Rules_When_TItem_Has_NOT_a_Name_Property()
+        public void Select_Rules_Without_KeyGetter_For_TItem()
         {
             RuleExecutor<Object, int[]> ruleEx = new RuleExecutor<Object, int[]>(
                 new List<RuleBase<Object, int[]>>()
@@ -110,36 +112,5 @@ namespace GildedRose.Tests
             ruleEx.ExecuteRules(new Object(), arg);
             Assert.Equal(2, arg[0]);
         }
-
-        [Fact]
-        public void Select_Rules_When_TItem_Has_NOT_a_Name_Property_But_a_Key_Getter_has_been_provided()
-        {
-            RuleExecutor<dynamic, int[]> ruleEx = new RuleExecutor<dynamic, int[]>(
-                rules : new List<RuleBase<dynamic, int[]>>()
-                {
-                    new RuleBase<dynamic, int[]>()
-                    {
-                        Order = 50,
-                        Name = "Multiply by 2",
-                        OnExecRule = (item, args) => { args[0] = args[0] * 2; }
-                    },
-                    new RuleBase<dynamic, int[]>()
-                    {
-                        Order = 1,
-                        Pattern = "special.*",
-                        Name = "Initialize to 3",
-                        OnExecRule = (item, args) => { args[0] = 3; }
-                    }
-                },
-                onGetKey : (item) => { return item.AlternateName; }
-            );
-            int[] arg = new int[1];
-            arg[0] = 1;
-            dynamic obj = new System.Dynamic.ExpandoObject();
-            ((IDictionary<string, Object>)obj).Add("AlternateName", "special dynamic object");
-            ruleEx.ExecuteRules(obj, arg);
-            Assert.Equal(6, arg[0]);
-        }
-
     }
 }
