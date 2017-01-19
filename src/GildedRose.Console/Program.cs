@@ -2,6 +2,7 @@
 using GildedRose.Console.Core;
 using RuleFramework;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace GildedRose.Console
 {
@@ -48,17 +49,23 @@ namespace GildedRose.Console
 
         public void UpdateQuality()
         {
-            Parallel.ForEach(Items, (item) => 
-            {
-                ItemIncrement itemIncrements = new ItemIncrement()
-                {
-                    QualityDelta = 0,
-                    SellInDelta = 0
-                };
-                ruler.ExecuteRules(item, itemIncrements);
-                item.SellIn += itemIncrements.SellInDelta;
-                item.Quality += itemIncrements.QualityDelta;
+            List<Task> tasks = new List<Task>();
+            Items.ToList().ForEach((item) => {
+                tasks.Add(Task.Factory.StartNew(() => UpdateItem(item)));
             });
+            Task.WaitAll(tasks.ToArray());
+        }
+
+        private void UpdateItem(Item item)
+        {
+            ItemIncrement itemIncrements = new ItemIncrement()
+            {
+                QualityDelta = 0,
+                SellInDelta = 0
+            };
+            ruler.ExecuteRules(item, itemIncrements);
+            item.SellIn += itemIncrements.SellInDelta;
+            item.Quality += itemIncrements.QualityDelta;
         }
     }
 
