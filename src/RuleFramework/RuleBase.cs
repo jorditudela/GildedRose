@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace RuleFramework
 {
@@ -15,7 +11,7 @@ namespace RuleFramework
         };
 
         public string Name;
-        public string Pattern = ".*";
+        public string Pattern = RulePatternConsts.MatchAll;
         public Action<TItem, TArgs> OnExecRule;
         public int Order = 50;
         public bool StopExecution = false;

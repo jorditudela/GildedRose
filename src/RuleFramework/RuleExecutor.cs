@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RuleFramework
 {
@@ -32,7 +30,7 @@ namespace RuleFramework
             else
             {
                 selected = rules.Where(
-                    x => x.Pattern == ".*"
+                    x => x.Pattern == RulePatternConsts.MatchAll
                 );
             }
             return selected.OrderBy(x => x.Order);
