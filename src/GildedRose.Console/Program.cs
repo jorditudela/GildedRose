@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using GildedRose.Console.Core;
 using RuleFramework;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GildedRose.Console
 {
@@ -47,7 +49,7 @@ namespace GildedRose.Console
 
         public void UpdateQuality()
         {
-            foreach (Item item in Items)
+            Parallel.ForEach(Items, (item) => 
             {
                 ItemIncrement itemIncrements = new ItemIncrement()
                 {
@@ -57,7 +59,7 @@ namespace GildedRose.Console
                 ruler.ExecuteRules(item, itemIncrements);
                 item.SellIn += itemIncrements.SellInDelta;
                 item.Quality += itemIncrements.QualityDelta;
-            };
+            });
         }
     }
 
