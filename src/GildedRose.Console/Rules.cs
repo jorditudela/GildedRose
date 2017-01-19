@@ -87,7 +87,7 @@ namespace GildedRose.Console
                 "value approaches; Quality increases by 2 when there are 10 days or less and " +
                 "by 3 when there are 5 days or less " +
                 "but Quality drops to 0 after the concert",
-                Pattern = @"Backstage passes.*",
+                Pattern = ItemConsts.BackstagePassesToATAFKAL80ETCConcert,
                 OnExecRule = (x, args) =>
                 {
                     var targetSellIn = x.SellIn;
